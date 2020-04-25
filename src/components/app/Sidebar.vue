@@ -4,11 +4,11 @@
       v-for="link in links"
       :key="link.url"
       tag="li"
-      active-class="active"
+      active-class="orange"
       :to="link.url"
       :exact="link.exact"
     >
-      <a href="#" class="waves-effect waves-orange pointer">{{ link.title }}</a>
+      <a href="#" class="pointer">{{ link.title }}</a>
     </router-link>
   </ul>
 </template>
@@ -27,3 +27,13 @@ export default {
   }),
 };
 </script>
+
+<style lang="scss" scoped>
+.sidenav {
+  a {
+    &:hover {
+      background-color: #fff06a;
+    }
+  }
+}
+</style>

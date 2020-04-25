@@ -1,6 +1,6 @@
 <template>
   <div class="app-main-layout">
-    <Navbar @click="isOpen = !isOpen" />
+    <Navbar @openSidebar="isOpen = !isOpen" />
 
     <Sidebar v-model="isOpen" />
 
@@ -10,23 +10,21 @@
       </div>
     </main>
 
-    <div class="fixed-action-btn">
-      <a class="btn-floating btn-large blue" href="#">
-        <i class="large material-icons">add</i>
-      </a>
-    </div>
+    <BtnNewRecord />
   </div>
 </template>
 
 <script>
 import Navbar from "../components/app/Navbar";
 import Sidebar from "../components/app/Sidebar";
+import BtnNewRecord from "../components/app/BtnNewRecord";
 
 export default {
   name: "MainLayout",
   components: {
     Navbar,
     Sidebar,
+    BtnNewRecord,
   },
   data: () => ({
     isOpen: true,
