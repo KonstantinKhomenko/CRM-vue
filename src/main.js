@@ -6,9 +6,13 @@ import router from "./router";
 import store from "./store";
 import "materialize-css/dist/js/materialize.min";
 import dateFilter from "./filters/dateFilter";
+import messagePlugin from "./utils/messagePlugin";
 
 Vue.config.productionTip = false;
+
+Vue.use(messagePlugin);
 Vue.use(Vuelidate);
+
 Vue.filter("dateFilter", dateFilter);
 
 new Vue({
