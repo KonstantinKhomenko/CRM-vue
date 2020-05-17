@@ -127,7 +127,7 @@ export default {
   },
 
   mounted() {
-    M.FormSelect.init(this.$refs.select);
+    this.select = M.FormSelect.init(this.$refs.select);
     M.updateTextFields();
   },
 
