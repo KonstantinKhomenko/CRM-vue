@@ -6,6 +6,7 @@
       </div>
 
       <form @submit.prevent="submitHandler">
+        
         <div class="input-field">
           <input
             id="name"
