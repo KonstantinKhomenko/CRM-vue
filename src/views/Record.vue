@@ -101,6 +101,7 @@
 <script>
 import M from "materialize-css";
 import { required, minValue } from "vuelidate/lib/validators";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Record",
@@ -120,14 +121,53 @@ export default {
     amount: { required, minValue: minValue(1) },
   },
 
+  computed: {
+    ...mapGetters(["info"]),
+    canCreateRecord() {
+      if (this.type === "income") {
+        return true;
+      }
+      return this.info.bill >= this.amount;
+    },
+  },
+
   methods: {
-    submitHandler() {
+    async submitHandler() {
       if (this.$v.$invalid) {
         this.$v.$touch();
         return;
       }
 
-      console.log(this.category, this.type, this.description, this.amount);
+      if (!this.canCreateRecord) {
+        this.$message(
+          `Недостаточно средств на счете! Нехватает: [ ${this.amount -
+            this.info.bill} ] `
+        );
+        return;
+      }
+
+      try {
+        await this.$store.dispatch("createRecord", {
+          categoryId: this.category,
+          amount: this.amount,
+          description: this.description,
+          type: this.type,
+          date: new Date().toJSON(),
+        });
+
+        const bill =
+          this.type === "income"
+            ? this.info.bill + this.amount
+            : this.info.bill - this.amount;
+
+        await this.$store.dispatch("updateInfo", { bill });
+        this.$message("Запись успешно добавлена");
+        this.$v.$reset();
+        this.amount = 1;
+        this.description = "";
+      } catch (error) {
+        this.$message(error);
+      }
     },
   },
 
