@@ -4,16 +4,23 @@ import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
+
 import "materialize-css/dist/js/materialize.min";
+
 import dateFilter from "./filters/dateFilter";
 import currencyFilter from "./filters/currencyFilter";
+
 import messagePlugin from "./utils/messagePlugin";
+
 import Loader from "./components/app/Loader";
+
 import tooltipDirective from "./directives/tooltip.directive";
 
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
+
+import Paginate from "vuejs-paginate";
 
 Vue.config.productionTip = false;
 
@@ -26,6 +33,7 @@ Vue.filter("currencyFilter", currencyFilter);
 Vue.directive("tooltip", tooltipDirective);
 
 Vue.component("Loader", Loader);
+Vue.component("Paginate", Paginate);
 
 firebase.initializeApp({
   apiKey: "AIzaSyD0z8d_ZutzcaDeeBO2ogIFGeGSgiHgGqY",
