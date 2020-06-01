@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 export default {
   data() {
@@ -7,7 +7,7 @@ export default {
       pageSize: 5,
       pageCount: 0,
       allItems: [],
-      items: [],
+      items: []
     };
   },
 
@@ -21,6 +21,6 @@ export default {
     pageChangeHandler(page) {
       this.$router.push(`${this.$route.path}?page=${page}`);
       this.items = this.allItems[page - 1] || this.allItems[0];
-    },
-  },
+    }
+  }
 };

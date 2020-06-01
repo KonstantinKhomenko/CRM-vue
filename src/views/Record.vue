@@ -1,15 +1,17 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Новая запись</h3>
+      <h3>{{ 'record' | localizeFilter }}</h3>
     </div>
 
     <Loader v-if="loading" />
 
     <div class="center" v-else-if="!categories.length">
-      Категорий пока нет.
+      {{ 'noCategories' | localizeFilter }}
       <div>
-        <router-link to="/categories">Добавить новую категорию</router-link>
+        <router-link to="/categories">{{
+          'newCategory' | localizeFilter
+        }}</router-link>
       </div>
     </div>
 
@@ -20,7 +22,7 @@
             cat.title
           }}</option>
         </select>
-        <label>Выберите категорию</label>
+        <label>{{ 'selectCategory' | localizeFilter }}</label>
       </div>
 
       <p>
@@ -32,7 +34,7 @@
             value="income"
             v-model="type"
           />
-          <span>Доход</span>
+          <span>{{ 'income' | localizeFilter }}</span>
         </label>
       </p>
 
@@ -45,7 +47,7 @@
             value="outcome"
             v-model="type"
           />
-          <span>Расход</span>
+          <span>{{ 'outcome' | localizeFilter }}</span>
         </label>
       </p>
 
@@ -57,19 +59,20 @@
           :class="{
             invalid:
               ($v.amount.$dirty && !$v.amount.required) ||
-              ($v.amount.$dirty && !$v.amount.minValue),
+              ($v.amount.$dirty && !$v.amount.minValue)
           }"
         />
-        <label for="amount">Сумма</label>
+        <label for="amount">{{ 'amount' | localizeFilter }}</label>
         <span
           v-if="$v.amount.$dirty && !$v.amount.required"
           class="helper-text invalid"
-          >Поле не должно быть пустым</span
+          >{{ 'emptyField' | localizeFilter }}</span
         >
         <span
           v-else-if="$v.amount.$dirty && !$v.amount.minValue"
           class="helper-text invalid"
-          >Минимальное значение {{ $v.amount.$params.minValue.min }}</span
+          >{{ 'minValue' | localizeFilter }}
+          {{ $v.amount.$params.minValue.min }}</span
         >
       </div>
 
@@ -79,19 +82,19 @@
           type="text"
           v-model="description"
           :class="{
-            invalid: $v.description.$dirty && !$v.description.required,
+            invalid: $v.description.$dirty && !$v.description.required
           }"
         />
-        <label for="description">Описание</label>
+        <label for="description">{{ 'description' | localizeFilter }}</label>
         <span
           v-if="$v.description.$dirty && !$v.description.required"
           class="helper-text invalid"
-          >Описание не должно быть пустым</span
+          >{{ 'emptyDescription' | localizeFilter }}</span
         >
       </div>
 
       <button class="btn waves-light" type="submit">
-        Создать
+        {{ 'create' | localizeFilter }}
         <i class="material-icons right">send</i>
       </button>
     </form>
@@ -99,36 +102,37 @@
 </template>
 
 <script>
-import M from "materialize-css";
-import { required, minValue } from "vuelidate/lib/validators";
-import { mapGetters } from "vuex";
+import M from 'materialize-css';
+import { required, minValue } from 'vuelidate/lib/validators';
+import { mapGetters } from 'vuex';
+import localizeFilter from '@/filters/localizeFilter';
 
 export default {
-  name: "Record",
+  name: 'Record',
 
   data: () => ({
     loading: true,
     categories: [],
     select: null,
     category: null,
-    type: "outcome",
+    type: 'outcome',
     amount: 1,
-    description: "",
+    description: ''
   }),
 
   validations: {
     description: { required },
-    amount: { required, minValue: minValue(1) },
+    amount: { required, minValue: minValue(1) }
   },
 
   computed: {
-    ...mapGetters(["info"]),
+    ...mapGetters(['info']),
     canCreateRecord() {
-      if (this.type === "income") {
+      if (this.type === 'income') {
         return true;
       }
       return this.info.bill >= this.amount;
-    },
+    }
   },
 
   methods: {
@@ -140,39 +144,38 @@ export default {
 
       if (!this.canCreateRecord) {
         this.$message(
-          `Недостаточно средств на счете! Нехватает: [ ${this.amount -
-            this.info.bill} ] `
+          `${localizeFilter('noMoney')} [ ${this.amount - this.info.bill} ] `
         );
         return;
       }
 
       try {
-        await this.$store.dispatch("createRecord", {
+        await this.$store.dispatch('createRecord', {
           categoryId: this.category,
           amount: this.amount,
           description: this.description,
           type: this.type,
-          date: new Date().toJSON(),
+          date: new Date().toJSON()
         });
 
         const bill =
-          this.type === "income"
+          this.type === 'income'
             ? this.info.bill + this.amount
             : this.info.bill - this.amount;
 
-        await this.$store.dispatch("updateInfo", { bill });
-        this.$message("Запись успешно добавлена");
+        await this.$store.dispatch('updateInfo', { bill });
+        this.$message(localizeFilter('recordAdded'));
         this.$v.$reset();
         this.amount = 1;
-        this.description = "";
+        this.description = '';
       } catch (error) {
         this.$message(error);
       }
-    },
+    }
   },
 
   async mounted() {
-    this.categories = await this.$store.dispatch("fetchCategories");
+    this.categories = await this.$store.dispatch('fetchCategories');
     this.loading = false;
 
     if (this.categories.length) {
@@ -189,6 +192,6 @@ export default {
     if (this.select && this.select.destroy) {
       this.select.destroy();
     }
-  },
+  }
 };
 </script>

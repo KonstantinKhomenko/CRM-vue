@@ -1,103 +1,103 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import firebase from "firebase/app";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import firebase from 'firebase/app';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/login",
-    name: "login",
+    path: '/login',
+    name: 'login',
     meta: {
-      layout: "empty",
+      layout: 'empty'
     },
-    component: () => import("../views/Login.vue"),
+    component: () => import('../views/Login.vue')
   },
   {
-    path: "/register",
-    name: "register",
+    path: '/register',
+    name: 'register',
     meta: {
-      layout: "empty",
+      layout: 'empty'
     },
-    component: () => import("../views/Register.vue"),
+    component: () => import('../views/Register.vue')
   },
   {
-    path: "/",
-    name: "home",
+    path: '/',
+    name: 'home',
     meta: {
-      layout: "main",
-      auth: true,
+      layout: 'main',
+      auth: true
     },
-    component: () => import("../views/Home.vue"),
+    component: () => import('../views/Home.vue')
   },
   {
-    path: "/categories",
-    name: "categories",
+    path: '/categories',
+    name: 'categories',
     meta: {
-      layout: "main",
-      auth: true,
+      layout: 'main',
+      auth: true
     },
-    component: () => import("../views/Categories.vue"),
+    component: () => import('../views/Categories.vue')
   },
   {
-    path: "/detail/:id",
-    name: "detail",
+    path: '/detail/:id',
+    name: 'detail',
     meta: {
-      layout: "main",
-      auth: true,
+      layout: 'main',
+      auth: true
     },
-    component: () => import("../views/Detail.vue"),
+    component: () => import('../views/Detail.vue')
   },
   {
-    path: "/history",
-    name: "history",
+    path: '/history',
+    name: 'history',
     meta: {
-      layout: "main",
-      auth: true,
+      layout: 'main',
+      auth: true
     },
-    component: () => import("../views/History.vue"),
+    component: () => import('../views/History.vue')
   },
   {
-    path: "/profile",
-    name: "profile",
+    path: '/profile',
+    name: 'profile',
     meta: {
-      layout: "main",
-      auth: true,
+      layout: 'main',
+      auth: true
     },
-    component: () => import("../views/Profile.vue"),
+    component: () => import('../views/Profile.vue')
   },
   {
-    path: "/record",
-    name: "record",
+    path: '/record',
+    name: 'record',
     meta: {
-      layout: "main",
-      auth: true,
+      layout: 'main',
+      auth: true
     },
-    component: () => import("../views/Record.vue"),
+    component: () => import('../views/Record.vue')
   },
   {
-    path: "/planning",
-    name: "planning",
+    path: '/planning',
+    name: 'planning',
     meta: {
-      layout: "main",
-      auth: true,
+      layout: 'main',
+      auth: true
     },
-    component: () => import("../views/Planning.vue"),
-  },
+    component: () => import('../views/Planning.vue')
+  }
 ];
 
 const router = new VueRouter({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
-  routes,
+  routes
 });
 
 router.beforeEach((to, from, next) => {
   const curentUser = firebase.auth().currentUser;
-  const requireAuth = to.matched.some((record) => record.meta.auth);
+  const requireAuth = to.matched.some(record => record.meta.auth);
 
   if (requireAuth && !curentUser) {
-    next("/login?message=login");
+    next('/login?message=login');
   } else {
     next();
   }

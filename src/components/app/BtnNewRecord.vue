@@ -3,7 +3,8 @@
     <router-link
       class="btn-floating btn-large blue"
       to="/record"
-      v-tooltip="'Создать новую запись'"
+      v-tooltip="msg"
+      :key="msg"
     >
       <i class="large material-icons">add</i>
     </router-link>
@@ -11,7 +12,14 @@
 </template>
 
 <script>
+import localizeFilter from '@/filters/localizeFilter';
+
 export default {
-  name: "BtnNewRecord",
+  name: 'BtnNewRecord',
+  computed: {
+    msg() {
+      return localizeFilter('newRecord');
+    }
+  }
 };
 </script>

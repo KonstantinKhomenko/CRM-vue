@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Категории</h3>
+      <h3>{{ 'menu_Categories' | localizeFilter }}</h3>
     </div>
     <section>
       <Loader v-if="loading" />
@@ -15,27 +15,27 @@
           :key="categories.length + updateCount"
         />
 
-        <p v-else class="center">Категорий пока нет</p>
+        <p v-else class="center">{{ 'noCategories' | localizeFilter }}</p>
       </div>
     </section>
   </div>
 </template>
 
 <script>
-import CategoryCreate from "../components/CategoryCreate";
-import CategoryEdit from "../components/CategoryEdit";
+import CategoryCreate from '../components/CategoryCreate';
+import CategoryEdit from '../components/CategoryEdit';
 
 export default {
-  name: "Categories",
+  name: 'Categories',
   components: {
     CategoryCreate,
-    CategoryEdit,
+    CategoryEdit
   },
 
   data: () => ({
     categories: [],
     loading: true,
-    updateCount: 0,
+    updateCount: 0
   }),
 
   methods: {
@@ -44,16 +44,16 @@ export default {
     },
 
     updateCategories(category) {
-      const idx = this.categories.findIndex((c) => c.id === category.id);
+      const idx = this.categories.findIndex(c => c.id === category.id);
       this.categories[idx].title = category.title;
       this.categories[idx].limit = category.limit;
       this.updateCount++;
-    },
+    }
   },
 
   async mounted() {
-    this.categories = await this.$store.dispatch("fetchCategories");
+    this.categories = await this.$store.dispatch('fetchCategories');
     this.loading = false;
-  },
+  }
 };
 </script>

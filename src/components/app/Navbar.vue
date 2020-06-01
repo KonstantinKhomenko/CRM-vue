@@ -5,7 +5,7 @@
         <a href="#" @click.prevent="$emit('openSidebar')">
           <i class="material-icons black-text">dehaze</i>
         </a>
-        <span class="black-text">{{ date | dateFilter("date time") }}</span>
+        <span class="black-text">{{ date | dateFilter('date time') }}</span>
       </div>
 
       <ul class="right hide-on-small-and-down">
@@ -23,13 +23,15 @@
           <ul id="dropdown" class="dropdown-content">
             <li>
               <router-link to="/profile" class="black-text">
-                <i class="material-icons">account_circle</i>Профиль
+                <i class="material-icons">account_circle</i
+                >{{ 'profileTitle' | localizeFilter }}
               </router-link>
             </li>
             <li class="divider" tabindex="-1"></li>
             <li>
               <a href="#" class="black-text" @click="logout">
-                <i class="material-icons">assignment_return</i>Выйти
+                <i class="material-icons">assignment_return</i
+                >{{ 'exit' | localizeFilter }}
               </a>
             </li>
           </ul>
@@ -40,14 +42,14 @@
 </template>
 
 <script>
-import M from "materialize-css";
+import M from 'materialize-css';
 
 export default {
-  name: "Navbar",
+  name: 'Navbar',
   data: () => ({
     date: new Date(),
     interval: null,
-    dropdown: null,
+    dropdown: null
   }),
 
   mounted() {
@@ -55,7 +57,7 @@ export default {
       this.date = new Date();
     }, 1000);
     M.Dropdown.init(this.$refs.dropdown, {
-      constrainWidth: false,
+      constrainWidth: false
     });
   },
 
@@ -68,9 +70,9 @@ export default {
 
   methods: {
     async logout() {
-      await this.$store.dispatch("logout");
-      this.$router.push("/login?message=logout");
-    },
+      await this.$store.dispatch('logout');
+      this.$router.push('/login?message=logout');
+    }
   },
 
   computed: {

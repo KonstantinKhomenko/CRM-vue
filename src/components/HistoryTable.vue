@@ -3,19 +3,19 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>Сумма</th>
-        <th>Дата</th>
-        <th>Категория</th>
-        <th>Тип</th>
-        <th>Открыть</th>
+        <th>{{ 'amount' | localizeFilter }}</th>
+        <th>{{ 'date' | localizeFilter }}</th>
+        <th>{{ 'category' | localizeFilter }}</th>
+        <th>{{ 'type' | localizeFilter }}</th>
+        <th>{{ 'open' | localizeFilter }}</th>
       </tr>
     </thead>
 
     <tbody>
       <tr v-for="(record, i) of records" :key="record.id">
         <td>{{ i + 1 }}</td>
-        <td>{{ record.amount | currencyFilter("UAH") }}</td>
-        <td>{{ record.date | dateFilter("datetime") }}</td>
+        <td>{{ record.amount | currencyFilter('UAH') }}</td>
+        <td>{{ record.date | dateFilter('datetime') }}</td>
         <td>{{ record.categoryName }}</td>
         <td>
           <span class="white-text badge" :class="[record.typeClass]">{{
@@ -24,7 +24,7 @@
         </td>
         <td>
           <button
-            v-tooltip="'Посмотреть детали'"
+            v-tooltip="viewDetails"
             class="btn-small btn"
             @click="$router.push('/detail/' + record.id)"
           >
@@ -37,14 +37,19 @@
 </template>
 
 <script>
+import localizeFilter from '@/filters/localizeFilter';
+
 export default {
-  name: "HistoryTable",
+  name: 'HistoryTable',
+  data: () => ({
+    viewDetails: localizeFilter('viewDetails')
+  }),
 
   props: {
     records: {
       type: Array,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 };
 </script>

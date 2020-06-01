@@ -10,7 +10,7 @@
           :class="{
             invalid:
               ($v.email.$dirty && !$v.email.required) ||
-              ($v.email.$dirty && !$v.email.email),
+              ($v.email.$dirty && !$v.email.email)
           }"
         />
         <label for="email">Email</label>
@@ -33,7 +33,7 @@
           :class="{
             invalid:
               ($v.password.$dirty && !$v.password.required) ||
-              ($v.password.$dirty && !$v.password.minLength),
+              ($v.password.$dirty && !$v.password.minLength)
           }"
         />
         <label for="password">Пароль</label>
@@ -68,19 +68,21 @@
 </template>
 
 <script>
-import { email, required, minLength } from "vuelidate/lib/validators";
-import messages from "../utils/messages";
+import { email, required, minLength } from 'vuelidate/lib/validators';
+import messages from '../utils/messages';
 
 export default {
-  name: "Login",
+  name: 'Login',
   data: () => ({
-    email: "",
-    password: "",
+    email: '',
+    password: ''
   }),
+
   validations: {
     email: { email, required },
-    password: { required, minLength: minLength(6) },
+    password: { required, minLength: minLength(6) }
   },
+
   methods: {
     async submitHandler() {
       if (this.$v.$invalid) {
@@ -90,22 +92,22 @@ export default {
 
       const formData = {
         email: this.email,
-        password: this.password,
+        password: this.password
       };
 
       try {
-        await this.$store.dispatch("login", formData);
-        this.$router.push("/");
+        await this.$store.dispatch('login', formData);
+        this.$router.push('/');
       } catch (error) {
         console.log(error);
       }
-    },
+    }
   },
 
   mounted() {
     if (messages[this.$route.query.message]) {
       this.$message(messages[this.$route.query.message]);
     }
-  },
+  }
 };
 </script>

@@ -17,16 +17,16 @@
 </template>
 <script>
 export default {
-  name: "Loader",
+  name: 'Loader',
   computed: {
     color() {
       const colors = [
-        "spinner-red-only",
-        "spinner-blue-only",
-        "spinner-green-only",
+        'spinner-red-only',
+        'spinner-blue-only',
+        'spinner-green-only'
       ];
       return colors[Math.floor(Math.random() * colors.length)];
-    },
-  },
+    }
+  }
 };
 </script>
