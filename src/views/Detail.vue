@@ -55,6 +55,12 @@ export default {
     outcome: localizeFilter('outcome')
   }),
 
+  metaInfo() {
+    return {
+      title: this.$title('details')
+    };
+  },
+
   async mounted() {
     const id = this.$route.params.id;
     const record = await this.$store.dispatch('fetchRecordById', id);

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>{{ 'account' | localizeFilter }}</h3>
+      <h3>{{ 'menu_Bill' | localizeFilter }}</h3>
 
       <button class="btn waves-light btn-small" @click="refresh">
         <i class="material-icons">refresh</i>
@@ -28,6 +28,13 @@ export default {
     loading: true,
     currency: null
   }),
+
+  metaInfo() {
+    return {
+      title: this.$title('menu_Bill')
+    };
+  },
+
   components: {
     HomeBill,
     HomeCurrency

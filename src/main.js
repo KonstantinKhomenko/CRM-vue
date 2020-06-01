@@ -6,12 +6,14 @@ import router from './router';
 import store from './store';
 
 import 'materialize-css/dist/js/materialize.min';
+import VueMeta from 'vue-meta';
 
 import dateFilter from './filters/dateFilter';
 import currencyFilter from './filters/currencyFilter';
 import localizeFilter from './filters/localizeFilter';
 
 import messagePlugin from './utils/messagePlugin';
+import titlePlugin from './utils/titlePlugin';
 
 import Loader from './components/app/Loader';
 
@@ -27,6 +29,8 @@ Vue.config.productionTip = false;
 
 Vue.use(messagePlugin);
 Vue.use(Vuelidate);
+Vue.use(VueMeta);
+Vue.use(titlePlugin);
 
 Vue.filter('dateFilter', dateFilter);
 Vue.filter('currencyFilter', currencyFilter);

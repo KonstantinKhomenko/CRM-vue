@@ -2,7 +2,7 @@
   <div class="col s12 m6 l4">
     <div class="card light-blue bill-card wrap">
       <div class="card-content white-text">
-        <span class="card-title">{{ 'currencyAccount' | localizeFilter }}</span>
+        <span class="card-title">{{ 'currencyBill' | localizeFilter }}</span>
 
         <p v-for="curr of currencies" :key="curr" class="currency-line">
           <span>{{ getCurrency(curr) | currencyFilter(curr) }}</span>

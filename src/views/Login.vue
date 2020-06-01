@@ -78,6 +78,12 @@ export default {
     password: ''
   }),
 
+  metaInfo() {
+    return {
+      title: this.$title('login')
+    };
+  },
+
   validations: {
     email: { email, required },
     password: { required, minLength: minLength(6) }

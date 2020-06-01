@@ -6,11 +6,10 @@
   "menu_Bill": "Bill",
   "menu_History": "History",
   "menu_Planning": "Planning",
-  "menu_NewRecord": "New Record",
+  "menu_NewRecord": "New record",
   "menu_Categories": "Categories",
   "exit": "Log off",
-  "account": "Account",
-  "currencyAccount": "Currency Account",
+  "currencyBill": "Currency bill",
   "rates": "Exchange Rates",
   "currency": "Currency",
   "course": "Course",
@@ -46,5 +45,8 @@
   "categoryCreated": "Category was created",
   "edit": "Edit",
   "categoryUpdated": "Category updated successfully",
-  "viewDetails": "View details"
+  "viewDetails": "View details",
+  "details": "Details",
+  "login": "Login",
+  "register": "Registration"
 }

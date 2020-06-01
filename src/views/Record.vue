@@ -120,6 +120,12 @@ export default {
     description: ''
   }),
 
+  metaInfo() {
+    return {
+      title: this.$title('menu_NewRecord')
+    };
+  },
+
   validations: {
     description: { required },
     amount: { required, minValue: minValue(1) }

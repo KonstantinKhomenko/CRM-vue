@@ -38,6 +38,12 @@ export default {
     updateCount: 0
   }),
 
+  metaInfo() {
+    return {
+      title: this.$title('menu_Categories')
+    };
+  },
+
   methods: {
     addNewCategory(category) {
       this.categories.push(category);

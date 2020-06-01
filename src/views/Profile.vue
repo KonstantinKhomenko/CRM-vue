@@ -51,6 +51,12 @@ export default {
     isRuLocale: true
   }),
 
+  metaInfo() {
+    return {
+      title: this.$title('profileTitle')
+    };
+  },
+
   validations: {
     name: { required }
   },

@@ -53,6 +53,12 @@ export default {
     prev: localizeFilter('prev')
   }),
 
+  metaInfo() {
+    return {
+      title: this.$title('menu_History')
+    };
+  },
+
   extends: Pie,
 
   mixins: [paginationMixin],
