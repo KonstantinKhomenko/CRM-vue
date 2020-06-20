@@ -98,6 +98,8 @@ router.beforeEach((to, from, next) => {
 
   if (requireAuth && !curentUser) {
     next('/login?message=login');
+  } else if (!requireAuth && curentUser) {
+    next('/');
   } else {
     next();
   }
